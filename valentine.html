@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Surprise 💝</title>
+    <style>
+        /* ============================================
+           EASY CUSTOMIZATION SECTION
+           ============================================
+           Change the backgrounds here!
+           You can use:
+           1. Gradients (like below)
+           2. Solid colors: background: #ff69b4;
+           3. Images: background: url('your-image.jpg'); background-size: cover;
+           4. Combine: background: url('image.jpg'), linear-gradient(...);
+        ============================================ */
+        
+        :root {
+            /* Screen 1 - Totoro/Start Screen Background */
+            --screen1-background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 50%, #ffd3b6 100%);
+            
+            /* Screen 2 - Valentine Question Background */
+            --screen2-background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ffdde1 100%);
+            
+            /* Screen 3 - Success/Celebration Background */
+            --screen3-background: linear-gradient(135deg, #ff6b9d 0%, #ffa07a 50%, #ffb6c1 100%);
+        }
+        
+        /* ============================================
+           END OF CUSTOMIZATION SECTION
+           (Don't modify below unless you know CSS)
+        ============================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* First Screen - Totoro Background */
+        #screen1 {
+            width: 100%;
+            height: 100vh;
+            background: var(--screen1-background);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #screen1::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+        }
+
+        /* Settings Button */
+        .settings-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .settings-btn:hover {
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Settings Modal */
+        .settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .settings-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .settings-title {
+            font-size: 32px;
+            color: #ff6b9d;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #ff6b9d;
+        }
+
+        .setting-group {
+            margin-bottom: 25px;
+        }
+
+        .setting-label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .setting-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-family: monospace;
+            transition: border-color 0.3s ease;
+        }
+
+        .setting-input:focus {
+            outline: none;
+            border-color: #ff6b9d;
+        }
+
+        .setting-hint {
+            font-size: 13px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .apply-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff1744 100%);
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .apply-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 23, 68, 0.4);
+        }
+
+        .totoro-container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .totoro {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .totoro svg {
+            width: 100%;
+            height: 100%;
+            animation: float 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        .totoro:hover svg {
+            animation: rapidBounce 0.3s ease-in-out infinite, float 3s ease-in-out infinite;
+        }
+
+        /* Hide default eyes and show expression-specific ones */
+        .totoro .normal-eyes { display: block; }
+        .totoro .excited-eyes { display: none; }
+        .totoro .tired-eyes { display: none; }
+        .totoro .hurt-eyes { display: none; }
+        .totoro .normal-mouth { display: block; }
+        .totoro .excited-mouth { display: none; }
+        .totoro .tired-mouth { display: none; }
+        .totoro .hurt-mouth { display: none; }
+
+        .totoro.excited .normal-eyes { display: none; }
+        .totoro.excited .excited-eyes { display: block; }
+        .totoro.excited .normal-mouth { display: none; }
+        .totoro.excited .excited-mouth { display: block; }
+
+        .totoro.tired .normal-eyes { display: none; }
+        .totoro.tired .tired-eyes { display: block; }
+        .totoro.tired .normal-mouth { display: none; }
+        .totoro.tired .tired-mouth { display: block; }
+
+        .totoro.hurt .normal-eyes { display: none; }
+        .totoro.hurt .hurt-eyes { display: block; }
+        .totoro.hurt .normal-mouth { display: none; }
+        .totoro.hurt .hurt-mouth { display: block; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes rapidBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
+        }
+
+        /* Ouch effect */
+        .ouch-text {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff1744;
+            pointer-events: none;
+            animation: ouchFloat 1s ease-out forwards;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        @keyframes ouchFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-60px) scale(1.5);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .game-title {
+            font-size: 48px;
+            color: #ff6b9d;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .start-button {
+            padding: 20px 60px;
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(55, 178, 77, 0.4);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .start-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(55, 178, 77, 0.6);
+        }
+
+        .start-button:active {
+            transform: translateY(-2px);
+        }
+
+        /* Leaves decoration */
+        .leaf {
+            position: absolute;
+            font-size: 40px;
+            animation: leafFloat 4s ease-in-out infinite;
+        }
+
+        .leaf1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .leaf2 { top: 20%; right: 15%; animation-delay: 1s; }
+        .leaf3 { bottom: 20%; left: 20%; animation-delay: 2s; }
+        .leaf4 { bottom: 15%; right: 10%; animation-delay: 1.5s; }
+
+        @keyframes leafFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(10deg); }
+        }
+
+        /* Second Screen - Valentine Question */
+        #screen2 {
+            width: 100%;
+            height: 100vh;
+            background: var(--screen2-background);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hearts-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.6;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .question-container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 60px 80px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .question-text {
+            font-size: 52px;
+            color: #ff1744;
+            margin-bottom: 50px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .emoji {
+            font-size: 80px;
+            margin-bottom: 30px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.15); }
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .answer-button {
+            padding: 20px 50px;
+            font-size: 32px;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #yesButton {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff1744 100%);
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 23, 68, 0.4);
+        }
+
+        #yesButton:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 12px 30px rgba(255, 23, 68, 0.6);
+        }
+
+        #noButton {
+            background: linear-gradient(135deg, #9e9e9e 0%, #616161 100%);
+            color: white;
+            box-shadow: 0 8px 20px rgba(97, 97, 97, 0.4);
+            position: absolute;
+            transition: all 0.15s ease-out;
+        }
+
+        /* Third Screen - Success */
+        #screen3 {
+            width: 100%;
+            height: 100vh;
+            background: var(--screen3-background);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .success-message {
+            text-align: center;
+            color: white;
+            z-index: 10;
+        }
+
+        .success-emoji {
+            font-size: 120px;
+            margin-bottom: 30px;
+            animation: celebrate 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes celebrate {
+            0% { transform: rotate(-10deg) scale(1); }
+            100% { transform: rotate(10deg) scale(1.2); }
+        }
+
+        .success-text {
+            font-size: 56px;
+            font-weight: bold;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .success-subtext {
+            font-size: 32px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            position: absolute;
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Screen 1: Start Game -->
+    <div id="screen1">
+        <!-- Settings Button -->
+        <button class="settings-btn" onclick="openSettings()">⚙️</button>
+        
+        <div class="totoro-container">
+            <div class="totoro" id="totoro">
+                <!-- Custom Cartoon Totoro SVG with Multiple Expressions -->
+                <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Body -->
+                    <ellipse cx="150" cy="180" rx="100" ry="110" fill="#8B8680" opacity="0.95"/>
+                    
+                    <!-- Belly -->
+                    <ellipse cx="150" cy="195" rx="75" ry="85" fill="#E8E4DC"/>
+                    
+                    <!-- Belly pattern (chevron marks) -->
+                    <path d="M 110 160 Q 150 170, 190 160" fill="none" stroke="#6B665E" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M 115 175 Q 150 185, 185 175" fill="none" stroke="#6B665E" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M 120 190 Q 150 200, 180 190" fill="none" stroke="#6B665E" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M 125 205 Q 150 215, 175 205" fill="none" stroke="#6B665E" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M 130 220 Q 150 228, 170 220" fill="none" stroke="#6B665E" stroke-width="3" stroke-linecap="round"/>
+                    
+                    <!-- Ears -->
+                    <ellipse cx="95" cy="80" rx="28" ry="55" fill="#8B8680" opacity="0.95"/>
+                    <ellipse cx="205" cy="80" rx="28" ry="55" fill="#8B8680" opacity="0.95"/>
+                    
+                    <!-- Inner ears -->
+                    <ellipse cx="95" cy="85" rx="15" ry="35" fill="#D4CFC5"/>
+                    <ellipse cx="205" cy="85" rx="15" ry="35" fill="#D4CFC5"/>
+                    
+                    <!-- Head -->
+                    <ellipse cx="150" cy="120" rx="85" ry="75" fill="#8B8680" opacity="0.95"/>
+                    
+                    <!-- NORMAL EXPRESSION -->
+                    <g class="normal-eyes">
+                        <!-- Eyes -->
+                        <ellipse cx="125" cy="115" rx="22" ry="28" fill="white"/>
+                        <ellipse cx="175" cy="115" rx="22" ry="28" fill="white"/>
+                        
+                        <!-- Pupils -->
+                        <circle cx="130" cy="120" r="12" fill="#2C2C2C"/>
+                        <circle cx="170" cy="120" r="12" fill="#2C2C2C"/>
+                        
+                        <!-- Eye shine -->
+                        <circle cx="133" cy="116" r="4" fill="white"/>
+                        <circle cx="173" cy="116" r="4" fill="white"/>
+                    </g>
+
+                    <!-- EXCITED EXPRESSION -->
+                    <g class="excited-eyes">
+                        <!-- Wide open happy eyes -->
+                        <ellipse cx="125" cy="112" rx="24" ry="32" fill="white"/>
+                        <ellipse cx="175" cy="112" rx="24" ry="32" fill="white"/>
+                        
+                        <!-- Large pupils looking forward -->
+                        <circle cx="125" cy="115" r="14" fill="#2C2C2C"/>
+                        <circle cx="175" cy="115" r="14" fill="#2C2C2C"/>
+                        
+                        <!-- Big eye shine -->
+                        <circle cx="128" cy="111" r="5" fill="white"/>
+                        <circle cx="178" cy="111" r="5" fill="white"/>
+                        
+                        <!-- Happy eyebrows -->
+                        <path d="M 105 95 Q 115 90, 125 92" fill="none" stroke="#4A4743" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M 195 95 Q 185 90, 175 92" fill="none" stroke="#4A4743" stroke-width="3" stroke-linecap="round"/>
+                    </g>
+
+                    <!-- TIRED EXPRESSION -->
+                    <g class="tired-eyes">
+                        <!-- Half-closed sleepy eyes -->
+                        <ellipse cx="125" cy="120" rx="22" ry="12" fill="white"/>
+                        <ellipse cx="175" cy="120" rx="22" ry="12" fill="white"/>
+                        
+                        <!-- Small pupils -->
+                        <circle cx="130" cy="122" r="8" fill="#2C2C2C"/>
+                        <circle cx="170" cy="122" r="8" fill="#2C2C2C"/>
+                        
+                        <!-- Droopy eyelids -->
+                        <path d="M 103 115 Q 125 118, 147 115" fill="none" stroke="#6B665E" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M 153 115 Q 175 118, 197 115" fill="none" stroke="#6B665E" stroke-width="2.5" stroke-linecap="round"/>
+                        
+                        <!-- Tired eyebrows -->
+                        <path d="M 105 100 Q 115 98, 125 99" fill="none" stroke="#4A4743" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M 195 100 Q 185 98, 175 99" fill="none" stroke="#4A4743" stroke-width="3" stroke-linecap="round"/>
+                    </g>
+
+                    <!-- HURT EXPRESSION -->
+                    <g class="hurt-eyes">
+                        <!-- Squeezed shut eyes (X shape) -->
+                        <path d="M 110 110 L 140 125" stroke="#2C2C2C" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M 140 110 L 110 125" stroke="#2C2C2C" stroke-width="4" stroke-linecap="round"/>
+                        
+                        <path d="M 160 110 L 190 125" stroke="#2C2C2C" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M 190 110 L 160 125" stroke="#2C2C2C" stroke-width="4" stroke-linecap="round"/>
+                        
+                        <!-- Pained eyebrows -->
+                        <path d="M 105 98 Q 115 93, 130 95" fill="none" stroke="#4A4743" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M 195 98 Q 185 93, 170 95" fill="none" stroke="#4A4743" stroke-width="3" stroke-linecap="round"/>
+                    </g>
+
+                    <!-- NORMAL MOUTH -->
+                    <g class="normal-mouth">
+                        <!-- Nose -->
+                        <path d="M 150 130 L 145 140 Q 150 145, 155 140 Z" fill="#4A4743"/>
+                    </g>
+
+                    <!-- EXCITED MOUTH -->
+                    <g class="excited-mouth">
+                        <!-- Nose -->
+                        <path d="M 150 130 L 145 140 Q 150 145, 155 140 Z" fill="#4A4743"/>
+                        
+                        <!-- Big happy smile -->
+                        <path d="M 135 145 Q 150 155, 165 145" fill="none" stroke="#4A4743" stroke-width="3" stroke-linecap="round"/>
+                    </g>
+
+                    <!-- TIRED MOUTH -->
+                    <g class="tired-mouth">
+                        <!-- Nose -->
+                        <path d="M 150 130 L 145 140 Q 150 145, 155 140 Z" fill="#4A4743"/>
+                        
+                        <!-- Small yawn -->
+                        <ellipse cx="150" cy="148" rx="8" ry="10" fill="#4A4743" opacity="0.7"/>
+                    </g>
+
+                    <!-- HURT MOUTH -->
+                    <g class="hurt-mouth">
+                        <!-- Nose -->
+                        <path d="M 150 130 L 145 140 Q 150 145, 155 140 Z" fill="#4A4743"/>
+                        
+                        <!-- Pain grimace -->
+                        <path d="M 135 150 Q 150 145, 165 150" fill="none" stroke="#4A4743" stroke-width="3" stroke-linecap="round"/>
+                    </g>
+                    
+                    <!-- Whiskers -->
+                    <!-- Left whiskers -->
+                    <line x1="90" y1="125" x2="40" y2="120" stroke="#4A4743" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="90" y1="132" x2="40" y2="135" stroke="#4A4743" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="90" y1="139" x2="45" y2="148" stroke="#4A4743" stroke-width="2" stroke-linecap="round"/>
+                    
+                    <!-- Right whiskers -->
+                    <line x1="210" y1="125" x2="260" y2="120" stroke="#4A4743" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="210" y1="132" x2="260" y2="135" stroke="#4A4743" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="210" y1="139" x2="255" y2="148" stroke="#4A4743" stroke-width="2" stroke-linecap="round"/>
+                    
+                    <!-- Arms -->
+                    <ellipse cx="70" cy="180" rx="25" ry="55" fill="#8B8680" opacity="0.95" transform="rotate(-20 70 180)"/>
+                    <ellipse cx="230" cy="180" rx="25" ry="55" fill="#8B8680" opacity="0.95" transform="rotate(20 230 180)"/>
+                    
+                    <!-- Paws/claws marks on arms -->
+                    <g opacity="0.6">
+                        <line x1="65" y1="215" x2="62" y2="225" stroke="#6B665E" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="70" y1="217" x2="68" y2="227" stroke="#6B665E" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="75" y1="215" x2="73" y2="225" stroke="#6B665E" stroke-width="2" stroke-linecap="round"/>
+                        
+                        <line x1="225" y1="215" x2="227" y2="225" stroke="#6B665E" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="230" y1="217" x2="232" y2="227" stroke="#6B665E" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="235" y1="215" x2="238" y2="225" stroke="#6B665E" stroke-width="2" stroke-linecap="round"/>
+                    </g>
+                    
+                    <!-- Feet -->
+                    <ellipse cx="120" cy="270" rx="35" ry="22" fill="#8B8680" opacity="0.95"/>
+                    <ellipse cx="180" cy="270" rx="35" ry="22" fill="#8B8680" opacity="0.95"/>
+                    
+                    <!-- Toe marks -->
+                    <g opacity="0.6">
+                        <circle cx="110" cy="270" r="4" fill="#6B665E"/>
+                        <circle cx="120" cy="272" r="4" fill="#6B665E"/>
+                        <circle cx="130" cy="270" r="4" fill="#6B665E"/>
+                        
+                        <circle cx="170" cy="270" r="4" fill="#6B665E"/>
+                        <circle cx="180" cy="272" r="4" fill="#6B665E"/>
+                        <circle cx="190" cy="270" r="4" fill="#6B665E"/>
+                    </g>
+                </svg>
+            </div>
+            
+            <!-- Decorative leaves -->
+            <div class="leaf leaf1">🍃</div>
+            <div class="leaf leaf2">🍃</div>
+            <div class="leaf leaf3">🌿</div>
+            <div class="leaf leaf4">🌿</div>
+            
+            <h1 class="game-title">💝 Valentine's Surprise 💝</h1>
+            <button class="start-button" onclick="startGame()">Start Game</button>
+        </div>
+    </div>
+
+    <!-- Screen 2: The Question -->
+    <div id="screen2">
+        <div class="hearts-background" id="heartsContainer"></div>
+        <div class="question-container">
+            <div class="emoji">💕</div>
+            <h2 class="question-text">Would you be my Valentine?</h2>
+            <div class="buttons-container">
+                <button class="answer-button" id="yesButton" onclick="sayYes()">Yes! 💖</button>
+                <button class="answer-button" id="noButton">No 😢</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen 3: Success -->
+    <div id="screen3">
+        <div class="success-message">
+            <div class="success-emoji">🎉💑🎉</div>
+            <h1 class="success-text">Yay! You said YES!</h1>
+            <p class="success-subtext">Happy Valentine's Day, my love! 💕</p>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2 class="settings-title">🎨 Customize Backgrounds</h2>
+                <button class="close-btn" onclick="closeSettings()">×</button>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">Screen 1 - Start Screen Background:</label>
+                <input type="text" class="setting-input" id="bg1" value="linear-gradient(135deg, #a8e6cf 0%, #dcedc1 50%, #ffd3b6 100%)">
+                <div class="setting-hint">Try: #ff69b4 or url('image.jpg') or linear-gradient(...)</div>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">Screen 2 - Question Screen Background:</label>
+                <input type="text" class="setting-input" id="bg2" value="linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ffdde1 100%)">
+                <div class="setting-hint">Try: #ffc0cb or url('hearts.jpg') or linear-gradient(...)</div>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">Screen 3 - Success Screen Background:</label>
+                <input type="text" class="setting-input" id="bg3" value="linear-gradient(135deg, #ff6b9d 0%, #ffa07a 50%, #ffb6c1 100%)">
+                <div class="setting-hint">Try: #ff1744 or url('celebration.jpg') or linear-gradient(...)</div>
+            </div>
+            
+            <button class="apply-btn" onclick="applySettings()">Apply Changes ✨</button>
+        </div>
+    </div>
+
+    <script>
+        let hoverTimer = null;
+        let totoroState = 'normal'; // normal, excited, tired
+
+        // Settings Modal Functions
+        function openSettings() {
+            document.getElementById('settingsModal').style.display = 'flex';
+        }
+
+        function closeSettings() {
+            document.getElementById('settingsModal').style.display = 'none';
+        }
+
+        function applySettings() {
+            const bg1 = document.getElementById('bg1').value;
+            const bg2 = document.getElementById('bg2').value;
+            const bg3 = document.getElementById('bg3').value;
+            
+            document.documentElement.style.setProperty('--screen1-background', bg1);
+            document.documentElement.style.setProperty('--screen2-background', bg2);
+            document.documentElement.style.setProperty('--screen3-background', bg3);
+            
+            closeSettings();
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('settingsModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSettings();
+            }
+        });
+
+        // Totoro Interaction
+        document.addEventListener('DOMContentLoaded', function() {
+            const totoro = document.getElementById('totoro');
+            
+            if (totoro) {
+                // Mouse enter - show excited
+                totoro.addEventListener('mouseenter', function() {
+                    totoroState = 'excited';
+                    this.classList.remove('tired', 'hurt');
+                    this.classList.add('excited');
+                    
+                    // Start timer for tired state after 5 seconds
+                    hoverTimer = setTimeout(() => {
+                        if (totoroState === 'excited') {
+                            totoroState = 'tired';
+                            this.classList.remove('excited', 'hurt');
+                            this.classList.add('tired');
+                        }
+                    }, 5000);
+                });
+                
+                // Mouse leave - reset to normal
+                totoro.addEventListener('mouseleave', function() {
+                    totoroState = 'normal';
+                    this.classList.remove('excited', 'tired', 'hurt');
+                    if (hoverTimer) {
+                        clearTimeout(hoverTimer);
+                        hoverTimer = null;
+                    }
+                });
+                
+                // Click - show hurt expression
+                totoro.addEventListener('click', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    // Clear any existing timers
+                    if (hoverTimer) {
+                        clearTimeout(hoverTimer);
+                        hoverTimer = null;
+                    }
+                    
+                    // Show hurt expression
+                    totoroState = 'hurt';
+                    this.classList.remove('excited', 'tired');
+                    this.classList.add('hurt');
+                    
+                    // Create "OUCH!" text at click position
+                    const ouchTexts = ['OUCH! 😣', 'AHH! 😖', 'OW! 😫', 'EEK! 😵', 'AYEE! 🥺'];
+                    const randomOuch = ouchTexts[Math.floor(Math.random() * ouchTexts.length)];
+                    
+                    const ouchElement = document.createElement('div');
+                    ouchElement.className = 'ouch-text';
+                    ouchElement.textContent = randomOuch;
+                    ouchElement.style.left = x + 'px';
+                    ouchElement.style.top = y + 'px';
+                    
+                    this.appendChild(ouchElement);
+                    
+                    // Remove ouch text and hurt expression after animation
+                    setTimeout(() => {
+                        ouchElement.remove();
+                        // Return to normal after hurt animation
+                        if (totoroState === 'hurt') {
+                            totoroState = 'normal';
+                            this.classList.remove('hurt');
+                        }
+                    }, 1000);
+                });
+            }
+        });
+
+        function startGame() {
+            document.getElementById('screen1').style.display = 'none';
+            document.getElementById('screen2').style.display = 'flex';
+            createHearts();
+            setupNoButton();
+        }
+
+        function createHearts() {
+            const container = document.getElementById('heartsContainer');
+            const hearts = ['❤️', '💕', '💖', '💗', '💓', '💝'];
+            
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        function setupNoButton() {
+            const noButton = document.getElementById('noButton');
+            
+            // Add transition for smooth movement
+            noButton.style.transition = 'all 0.15s ease-out';
+            
+            // Track mouse movement over the entire screen
+            document.addEventListener('mousemove', function(e) {
+                if (document.getElementById('screen2').style.display === 'flex') {
+                    const buttonRect = noButton.getBoundingClientRect();
+                    const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+                    const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+                    
+                    // Calculate distance from mouse to button center
+                    const distanceX = e.clientX - buttonCenterX;
+                    const distanceY = e.clientY - buttonCenterY;
+                    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+                    
+                    // Increased detection radius - button moves when mouse gets within 150px
+                    const detectionRadius = 150;
+                    
+                    if (distance < detectionRadius) {
+                        moveButtonAway(e.clientX, e.clientY);
+                    }
+                }
+            });
+            
+            // Also keep the mouseenter event as backup
+            noButton.addEventListener('mouseenter', function() {
+                const rect = noButton.getBoundingClientRect();
+                moveButtonAway(rect.left + rect.width / 2, rect.top + rect.height / 2);
+            });
+            
+            // Prevent clicking
+            noButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                moveButtonAway(e.clientX, e.clientY);
+            });
+        }
+        
+        function moveButtonAway(mouseX, mouseY) {
+            const noButton = document.getElementById('noButton');
+            const container = document.querySelector('.question-container');
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = noButton.getBoundingClientRect();
+            
+            // Calculate button center
+            const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+            const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+            
+            // Calculate direction away from mouse
+            const awayX = buttonCenterX - mouseX;
+            const awayY = buttonCenterY - mouseY;
+            
+            // Normalize and multiply for movement distance
+            const length = Math.sqrt(awayX * awayX + awayY * awayY);
+            const normalizedX = awayX / length;
+            const normalizedY = awayY / length;
+            
+            // Move further away (increased distance)
+            const moveDistance = 200;
+            let newX = (buttonRect.left - containerRect.left) + (normalizedX * moveDistance);
+            let newY = (buttonRect.top - containerRect.top) + (normalizedY * moveDistance);
+            
+            // Keep within container bounds with padding
+            const padding = 20;
+            const maxX = containerRect.width - buttonRect.width - padding;
+            const maxY = containerRect.height - buttonRect.height - padding;
+            
+            // Check if button would be stuck in corner or edge
+            const wouldBeAtEdge = (
+                newX <= padding || 
+                newX >= maxX || 
+                newY <= padding || 
+                newY >= maxY
+            );
+            
+            // If stuck at edge/corner, jump to random safe position far from mouse
+            if (wouldBeAtEdge) {
+                // Find a position far from mouse
+                let attempts = 0;
+                let safeX, safeY;
+                
+                do {
+                    safeX = padding + Math.random() * (maxX - padding);
+                    safeY = padding + Math.random() * (maxY - padding);
+                    
+                    // Calculate distance from mouse to this potential position
+                    const potentialCenterX = containerRect.left + safeX + buttonRect.width / 2;
+                    const potentialCenterY = containerRect.top + safeY + buttonRect.height / 2;
+                    const distToMouse = Math.sqrt(
+                        Math.pow(mouseX - potentialCenterX, 2) + 
+                        Math.pow(mouseY - potentialCenterY, 2)
+                    );
+                    
+                    // Accept position if far enough from mouse (at least 250px away)
+                    if (distToMouse > 250 || attempts > 10) {
+                        newX = safeX;
+                        newY = safeY;
+                        break;
+                    }
+                    attempts++;
+                } while (attempts < 20);
+            } else {
+                // Normal movement - ensure within bounds
+                newX = Math.max(padding, Math.min(newX, maxX));
+                newY = Math.max(padding, Math.min(newY, maxY));
+                
+                // Add some randomness to make it more playful
+                newX += (Math.random() - 0.5) * 50;
+                newY += (Math.random() - 0.5) * 50;
+                
+                // Ensure still within bounds after randomness
+                newX = Math.max(padding, Math.min(newX, maxX));
+                newY = Math.max(padding, Math.min(newY, maxY));
+            }
+            
+            noButton.style.left = newX + 'px';
+            noButton.style.top = newY + 'px';
+        }
+
+        function sayYes() {
+            document.getElementById('screen2').style.display = 'none';
+            document.getElementById('screen3').style.display = 'flex';
+            createConfetti();
+        }
+
+        function createConfetti() {
+            const colors = ['#ff6b9d', '#ffa07a', '#ffb6c1', '#ff1744', '#ffd700', '#ff69b4'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = -10 + 'px';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                document.getElementById('screen3').appendChild(confetti);
+            }
+        }
+    </script>
+</body>
+</html>
